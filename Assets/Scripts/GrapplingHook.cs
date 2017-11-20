@@ -6,10 +6,13 @@ public class GrapplingHook : MonoBehaviour {
 
 	public DistanceJoint2D joint;
 	public LineRenderer line;
+	public float targetDistance = 10f;
+
+	private float distanceStep = 0.1f;
 
 	private Vector3 target;
 
-	private bool activated = true;
+	private bool activated = false;
 
 	void Start()
 	{
@@ -19,12 +22,13 @@ public class GrapplingHook : MonoBehaviour {
 	void Update()
 	{
 		if(activated) {
-			line.SetPosition(0, transform.position);
+			joint.distance -= distanceStep;
 		}
+		line.SetPosition(0, transform.position);
 	}
 
 	public void cast () {
-		target.x = transform.position.x + 10;
+		target.x = transform.position.x + targetDistance;
 
 		joint.connectedAnchor = target;
 		joint.enabled = true;
