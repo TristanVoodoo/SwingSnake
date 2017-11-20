@@ -1,11 +1,11 @@
 fileFormatVersion: 2
 guid: 4e509fc09934f4c3faf7354b67e782cd
-timeCreated: 1511173785
+timeCreated: 1511174794
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
-    21300000: circle_0
-    21300002: circle_1
+    21300000: circle
+    21300002: square
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -98,7 +98,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: circle_0
+      name: circle
       rect:
         serializedVersion: 2
         x: 0
@@ -106,19 +106,19 @@ TextureImporter:
         width: 101
         height: 101
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: circle_1
+      name: square
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2055
-        width: 165
-        height: 153
+        x: 112
+        y: 2107
+        width: 102
+        height: 101
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
