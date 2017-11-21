@@ -6,9 +6,10 @@ public class GrapplingHook : MonoBehaviour {
 
 	public DistanceJoint2D joint;
 	public LineRenderer line;
-	public float targetDistance = 10f;
+	public float targetDistance = 0f;
 
-	private float distanceStep = 0.1f;
+	public float distanceStep = 0.1f;
+	private float minDistance = -1f;
 
 	private Vector3 target;
 
@@ -21,8 +22,15 @@ public class GrapplingHook : MonoBehaviour {
 
 	void Update()
 	{
+		line.SetPosition(0, transform.position);
+	}
+
+	void FixedUpdate()
+	{
 		if(activated) {
-			joint.distance -= distanceStep;
+			if(joint.distance > minDistance) {
+				joint.distance -= distanceStep;
+			}
 		}
 		line.SetPosition(0, transform.position);
 	}

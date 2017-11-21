@@ -8,6 +8,11 @@ public class BlockCollider : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		StartCoroutine(block.HitBlock());
+		if(!block.disable) {
+			block.wall.Disable();
+			Events.Instance.Raise(new OnBlockCollidedEvent() {score = block.points});
+			block.Die();
+			//StartCoroutine(block.HitBlock());
+		}
 	}
 }

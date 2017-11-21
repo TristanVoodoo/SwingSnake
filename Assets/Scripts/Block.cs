@@ -4,17 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class OnBlockCollidedEvent : GameEvent {
-
+	public int score;
 }
 
 public class OnBlockDestroyedEvent : GameEvent {
-
+	
 }
 
 public class Block : MonoBehaviour {
 
+	public BlockWall wall;
 	public int points = 0;
 	public Text pointsText;
+	public ParticleSystem deathParticles;
+
+	public bool disable = false;
 
 	void Start () {
 		if(points < 1) {
@@ -23,7 +27,7 @@ public class Block : MonoBehaviour {
 		UpdatePoints();
 	}
 
-	public IEnumerator HitBlock() {
+	/*public IEnumerator HitBlock() {
 		Events.Instance.Raise(new OnBlockCollidedEvent());
 		points--;
 		UpdatePoints();
@@ -32,14 +36,19 @@ public class Block : MonoBehaviour {
 		}
 		yield return new WaitForSeconds(0.1f);
 		StartCoroutine(HitBlock());
-	}
+	}*/
 	
 	public void UpdatePoints () {
 		pointsText.text = points.ToString();
 	}
 
-	void Die() {
+	public void Die() {
 		Events.Instance.Raise(new OnBlockDestroyedEvent());
+		//Instantiate(deathParticles, transform.position, Quaternion.identity);
 		Destroy(gameObject);
+	}
+
+	public void Disable() {
+		disable = true;
 	}
 }

@@ -14,7 +14,9 @@ public class CameraController : MonoBehaviour {
 	}
 	
 	void Update () {
-		newPos.x = player.transform.position.x + xOffset;
-		transform.position = newPos;
+		if(player != null) {
+			newPos.x = player.transform.position.x + xOffset;
+			transform.position = newPos;
+		}
 	}
 }

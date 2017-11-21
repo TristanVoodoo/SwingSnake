@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
 	public Rigidbody2D body;
+	public float xSpeed = 22.5f;
 	public SpriteRenderer sprite;
 	public GrapplingHook grapplingHook;
 	public ParticleSystem deathParticles;
@@ -30,6 +30,7 @@ public class Player : MonoBehaviour {
 
 	void HandleOnBlockCollided(OnBlockCollidedEvent ev) {
 		collided = true;
+		Instantiate(deathParticles, transform.position, Quaternion.identity);
 	}
 
 	void HandleOnBlockDestroyed(OnBlockDestroyedEvent ev) {
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour {
 
 	void Start()
 	{
-
+		body.velocity = new Vector3(xSpeed, 0, 0);
 	}
 	
 	void Update () {
@@ -51,6 +52,8 @@ public class Player : MonoBehaviour {
 		} else if(!dead) {
 			if (Input.GetMouseButtonDown(0)) {
 				grapplingHook.cast();
+				Debug.Log(body.velocity);
+				body.velocity = new Vector3(xSpeed, 0, 0);
 			} else if(Input.GetMouseButtonUp(0)) {
 				grapplingHook.stop();
 			}
@@ -65,15 +68,11 @@ public class Player : MonoBehaviour {
 		if(!dead) {
 			dead = true;
 			sprite.enabled = false;
-			deathParticles.gameObject.SetActive(true);
+			Instantiate(deathParticles, transform.position, Quaternion.identity);
 			grapplingHook.stop();
-			StartCoroutine(Respawn());
+			GameManager.Instance.Restart();
+			Destroy(gameObject);
 		}
-	}
-
-	IEnumerator Respawn() {
-		yield return new WaitForSeconds(2f);
-		SceneManager.LoadScene("Game");
 	}
 
 	private void OnCollisionEnter2D(Collision2D other) {
